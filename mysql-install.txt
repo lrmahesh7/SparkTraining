@@ -1,0 +1,37 @@
+
+steps:
+
+sudo apt-get update
+sudo apt install mysql-server
+sudo mysql -u root 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'bigdataquest';
+ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock
+service mysql restart
+sudo mysql -u root -p bigdataquest
+Done
+-----------------------------------------------------------
+Error:
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+Soluction:ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock
+
+----------------------------------------
+
+grant all privileges on *.* to root@localhost identified by 'bigdataquest'; with grant option;
+ CREATE USER 'bigdataquest'@'localhost' IDENTIFIED BY 'bigdataquest';
+ 
+ 
+ mysql> USE mysql;
+mysql> CREATE USER 'bigdataquest'@'localhost' IDENTIFIED BY 'bigdataquest';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'bigdataquest'@'localhost';
+mysql> UPDATE user SET plugin='auth_socket' WHERE User='bigdataquest';
+mysql> FLUSH PRIVILEGES;
+mysql> exit;
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'bigdataquest';
+ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock
+service mysql restart
+
+
+sudo mysql -u root -p
+bigdataquest
